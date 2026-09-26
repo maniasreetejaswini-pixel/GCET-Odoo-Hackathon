@@ -1,0 +1,12 @@
+const express = require('express'); 
+const connectDB = require('./config/db'); 
+const path = require('path'); 
+const app = express(); 
+connectDB(); 
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json()); 
+app.set('view engine', 'ejs'); 
+app.use('/auth', require('./routes/auth')); 
+app.use('/inventory', require('./routes/inventory')); 
+app.get('/', (req, res) => res.redirect('/inventory/dashboard')); 
+app.listen(PORT, () => console.log(`StockSense running on port ${PORT}`)); 
